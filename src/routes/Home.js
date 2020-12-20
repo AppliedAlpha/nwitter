@@ -1,9 +1,15 @@
 import React, {useState} from "react"
+import {dbService} from "../fBase";
 
 const Home = () => {
     const [nweet, setNweet] = useState("");
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
+        await dbService.collection("nweets").add({
+            nweet,
+            createdAt: Date.now(),
+        });
+        setNweet("");
     };
     const onChange = (event) => {
         const {target: {value}, } = event;
@@ -13,7 +19,7 @@ const Home = () => {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <input type="text" value={nweet} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?" maxLength={140} />
+                <input type="text" value={nweet} onChange={onChange} placeholder="What's Happening?" maxLength={140} />
                 <input type="submit" value="Nweet" />
             </form>
         </div>

@@ -1,19 +1,21 @@
-import React, {useState, useEffect} from "react"
-import {dbService} from "fBase";
+import React, {useState, useEffect} from "react";
+import {v4 as uuidv4} from "uuid";
+import {dbService, storageService} from "fBase";
 import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
 
     useEffect(() => {
-        dbService.collection("nweets").onSnapshot((snapshot) => {
+        dbService.collection("nweets")
+            .orderBy("createdAt", "desc")
+            .onSnapshot((snapshot) => {
             const nweetArray = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
             }))
-            //    .sort((a, b) => {return a["createdAt"] - b["createdAt"];});
             setNweets(nweetArray);
             console.log(nweetArray);
         });
@@ -21,12 +23,21 @@ const Home = ({ userObj }) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        await dbService.collection("nweets").add({
+        let attachmentUrl = "";
+        if (attachment !== "") {
+            const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+            const response = await attachmentRef.putString(attachment, "data_url");
+            attachmentUrl = await response.ref.getDownloadURL();
+        }
+        const nweetObj = {
             text: nweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
-        });
+            attachmentUrl,
+        }
+        await dbService.collection("nweets").add(nweetObj);
         setNweet("");
+        setAttachment("");
     };
 
     const onChange = (event) => {
@@ -46,7 +57,7 @@ const Home = ({ userObj }) => {
     };
 
     const onClearAttachment = () => {
-        setAttachment(null);
+        setAttachment("");
     };
 
     return (

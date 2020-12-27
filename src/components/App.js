@@ -8,11 +8,15 @@ function App() {
 
     useEffect(() => {
         authService.onAuthStateChanged((user) => {
-            setUserObj({
-                displayName: user.displayName,
-                uid: user.uid,
-                updateProfile: (args) => user.updateProfile(args),
-            });
+            if (user) {
+                setUserObj({
+                    displayName: user.displayName,
+                    uid: user.uid,
+                    updateProfile: (args) => user.updateProfile(args),
+                });
+            } else {
+                setUserObj(null);
+            }
             setInit(true);
         });
     }, []);

@@ -1,4 +1,9 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faGoogle,
+    faGithub,
+} from "@fortawesome/free-brands-svg-icons";
 import {authService, firebaseInstance} from "fBase";
 
 const SocialService = () => {
@@ -15,9 +20,19 @@ const SocialService = () => {
     };
 
     return (
-        <div>
-            <button name="google" onClick={onSocialClick}>Continue with Google</button>
-            <button name="github" onClick={onSocialClick}>Continue with GitHub</button>
+        <div className="authBtns">
+            <button name="google"
+                    className="authBtn"
+                    onClick={onSocialClick}>
+                Continue with Google
+                <FontAwesomeIcon icon={faGoogle} />
+            </button>
+            <button name="github"
+                    className="authBtn"
+                    onClick={onSocialClick}>
+                Continue with GitHub
+                <FontAwesomeIcon icon={faGithub} />
+            </button>
         </div>
     );
 };

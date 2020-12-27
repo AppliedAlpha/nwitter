@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react"
 import {useHistory} from "react-router-dom"
 import {authService, dbService} from "fBase";
 
-export default ({ userObj }) => {
+export default ({ userObj, refreshUser }) => {
     const history = useHistory();
-    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName ? userObj.displayName : "");
 
     const onLogOutClick = () => {
         authService.signOut();
@@ -30,6 +30,7 @@ export default ({ userObj }) => {
             await userObj.updateProfile({
                 displayName: newDisplayName
             });
+            refreshUser();
         }
     };
 
@@ -43,7 +44,7 @@ export default ({ userObj }) => {
                 <input type="text"
                        onChange={onChange}
                        placeholder="Display name"
-                       value={newDisplayName ? newDisplayName : ""} />
+                       value={newDisplayName} />
                 <input type="submit"
                        value="Update Profile" />
             </form>

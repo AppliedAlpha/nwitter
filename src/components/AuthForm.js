@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import {authService} from "fBase";
 
-const inputStyles = {};
-
 const AuthForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -64,12 +62,12 @@ const AuthForm = () => {
                 />
                 <input type="submit"
                        className="authInput authSubmit"
-                       value={newAccount ? "Create Account" : "Sign In"}
+                       value={newAccount ? "계정 만들기" : "로그인"}
                 />
                 {error && <span className="authError">{error}</span>}
             </form>
             <span onClick={toggleAccount} className="authSwitch">
-                {newAccount ? "Sign In" : "Create Account"}
+                {newAccount ? "로그인하고 싶나요?" : "계정을 만들고 싶으신가요?"}
             </span>
         </>
     );

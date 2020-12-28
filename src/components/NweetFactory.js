@@ -10,7 +10,7 @@ const NweetFactory = ({ userObj }) => {
 
     const onSubmit = async (event) => {
         if (nweet === "") {
-            window.alert("Nweet should contain some messages!");
+            window.alert("트윗에 내용이 반드시 있어야 합니다!");
             return;
         }
         event.preventDefault();
@@ -58,13 +58,13 @@ const NweetFactory = ({ userObj }) => {
                        className="factoryInput__input"
                        value={nweet}
                        onChange={onChange}
-                       placeholder="What's Happening?"
+                       placeholder="무슨 생각을 하고 계신가요?"
                        maxLength={140}
                 />
                 <input type="submit" value="&rarr;" className="factoryInput__arrow" />
             </div>
             <label htmlFor="attach-file" className="factoryInput__label">
-                <span>Add photos</span>
+                <span>이미지 추가하기</span>
                 <FontAwesomeIcon icon={faPlus}/>
             </label>
             <input id="attach-file"

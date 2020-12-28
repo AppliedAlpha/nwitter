@@ -24,13 +24,13 @@ const SocialService = () => {
             <button name="google"
                     className="authBtn"
                     onClick={onSocialClick}>
-                Continue with Google
+                Google로 계속하기
                 <FontAwesomeIcon icon={faGoogle} />
             </button>
             <button name="github"
                     className="authBtn"
                     onClick={onSocialClick}>
-                Continue with GitHub
+                GitHub으로 계속하기
                 <FontAwesomeIcon icon={faGithub} />
             </button>
         </div>

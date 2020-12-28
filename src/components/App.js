@@ -36,8 +36,8 @@ function App() {
                 <AppRouter isLoggedIn={Boolean(userObj)}
                            refreshUser={refreshUser}
                            userObj={userObj} />
-                : "Initializing..."}
-            <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
+                : ""}
+            <footer>&copy; Aria-Nwitter {new Date().getFullYear()}</footer>
         </>
     );
 }
